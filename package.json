@@ -1,0 +1,16 @@
+{
+  "name": "etherstest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@swisstronik/ethers": "5.7.2"
+  },
+  "scripts": {
+    "start": "ts-node index.ts"
+  }
+}
