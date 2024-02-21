@@ -1,5 +1,6 @@
 import { ethers } from "@swisstronik/ethers";
 import { abi } from "./TestContract";
+import { encryptDataFieldWithPublicKey} from "@swisstronik/utils";
 
 const MUMBAI_CONTRACT = "0x2CEc6767FEc921587Ac7A2a35f07b5EFb5088DA0";
 const SWTR_CONTRACT = "0x9e7AEfB3eA21DEe24366592B4699e1C7aBD77b80";
@@ -42,9 +43,15 @@ async function performEstimateGas(isSwisstronik: boolean) {
 async function performSendTransaction(isSwisstronik: boolean) {
     const signer = getSigner(isSwisstronik)
     const contract = getContract(isSwisstronik)
-    const tx = await contract.populateTransaction.counter();
-    const res = await signer.sendTransaction(tx);
+    const provider = new ethers.providers.JsonRpcProvider("https://json-rpc.testnet.swisstronik.com")
+    const preparedTx = await contract.populateTransaction.counter();
 
+    const tx = await signer.populateTransaction(preparedTx);
+    const publicKey = await provider.detectNodePublicKey();
+    let [encryptedData] = encryptDataFieldWithPublicKey(publicKey, tx.data as any);
+    tx.data = encryptedData;
+    const signedTx = await signer.signTransaction(tx);
+    const res = await signer.provider.sendTransaction(signedTx);
 
 
     console.log('sendTransaction result: ', res)
