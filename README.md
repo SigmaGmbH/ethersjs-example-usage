@@ -18,7 +18,7 @@ In order to start using Swisstronik Ethers.js:
     
     to 
        
-    `"@swisstronik/ethers": "^572.0.1"`
+    `"@swisstronik/ethers": "^572.0.2"`
 
 
 2. Replace imports in your code:

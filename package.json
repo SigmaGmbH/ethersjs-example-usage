@@ -8,7 +8,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@swisstronik/ethers": "572.0.1"
+    "@swisstronik/ethers": "^572.0.2"
   },
   "scripts": {
     "start": "ts-node index.ts"
